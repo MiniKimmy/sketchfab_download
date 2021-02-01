@@ -1,6 +1,10 @@
-# sketchfab download 
+# Sketchfab download 
 
 Download the model for free from [www.sketchfab.com](https://sketchfab.com/3d-models) and automatically export the `.FBX`file format
+
+
+
+**>>**[中文文档](https://github.com/MiniKimmy/sketchfab_download/blob/master/docs/README_CN.md)
 
 
 
@@ -20,7 +24,7 @@ $ git clone https://github.com/MiniKimmy/sketchfab_download.git
 
 # Features
 
-* Download model from [sketchfab.com](https://sketchfab.com/3d-models)
+* Download model && model's textures from [sketchfab.com](https://sketchfab.com/3d-models)
 * Decode model && export `.fbx` 
 
 
