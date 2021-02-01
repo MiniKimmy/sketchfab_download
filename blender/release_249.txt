@@ -1,0 +1,13 @@
+------------------------- Blender 2.49 release ----------------
+
+May 2009
+
+This is the 2.49 release of Blender, featuring the results of over
+a half year of development. 
+
+For html versions of release logs, please check:
+http://www.blender.org
+
+Have fun!
+
+The blender.org team.

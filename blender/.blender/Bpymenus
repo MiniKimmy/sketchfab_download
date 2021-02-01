@@ -1,0 +1,221 @@
+# Blender: registered menu entries for bpython scripts
+
+Animation {
+'Bake Constraints' 246 animation_bake_constraints.py 0 'Bake a Constrained object/rig to IPOs'
+'BlenderLipSynchro' 242 blenderLipSynchro.py 0 'Import phonemes from Papagayo or JLipSync for lip synchronization'
+'Camera Changer' 234 camera_changer.py 0 'Create script link to change cameras (based on their names) during an animation'
+'Clean Animation Curves' 249 animation_clean.py 0 'Remove unused keyframes for ipo curves'
+'Envelope Symmetry' 234 envelope_symmetry.py 0 'Make envelope symmetrical'
+'Shape Widget Wizard' 238 widgetwizard.py 0 'Adds Widgets for Driven Shapes'
+'Trajectory' 243 animation_trajectory.py 0 'See Trajectory of selected object'
+}
+
+Export {
+'3D Studio (.3ds)...' 243 3ds_export.py 0 'Export to 3DS file format (.3ds).'
+'AC3D (.ac)...' 243 ac3d_export.py 0 'Export selected meshes to AC3D (.ac) format'
+'Autodesk DXF (.dxf/dwg)' 249 export_dxf.py 0 'Export geometry to DXF/DWG-r12 (Drawing eXchange Format).'
+'Autodesk FBX (.fbx)...' 249 export_fbx.py 0 'Selection to an ASCII Autodesk FBX '
+'COLLADA 1.3.1 (.dae) ...' 240 collada_export.py 0 'Export scene to COLLADA format (.dae)'
+'COLLADA 1.4(.dae) ...' 241 colladaExport14.py 0 'Export scene from Blender to COLLADA 1.4 format (.dae)'
+'DEC Object File Format (.off)...' 232 off_export.py 0 'Export selected mesh to DEC Object File Format (*.off)'
+'DirectX (.x)...' 242 DirectX8Exporter.py 0 'Export to DirectX text file format format for XNA Animation Component Library.'
+'LightWave (.lwo)...' 243 lightwave_export.py 0 'Export selected meshes to LightWave File Format (.lwo)'
+'Lightwave Motion (.mot)...' 241 export_lightwave_motion.py 0 'Export Loc Rot Size chanels to a Lightwave .mot file'
+'M3G (.m3g, .java)...' 244 export_m3g.py 0 'Export to M3G'
+'MD2 (.md2)' 243 md2_export.py 0 'Export to Quake file format (.md2).'
+'OpenFlight (.flt)...' 245 flt_export.py 0 'Export to OpenFlight v16.0 (.flt)'
+'OpenInventor (.iv)...' 236 export-iv-0.1.py 0 'Export to OpenInventor file format. (.iv)'
+'Quake 3 (.map)' 249 export_map.py 0 'Export to Quake map format'
+'Raw Faces (.raw)...' 245 raw_export.py 0 'Export selected mesh to Raw Format (.raw)'
+'Save Current Theme...' 242 save_theme.py 0 'Save current theme as a BPython script'
+'SoftImage XSI (.xsi)...' 236 xsi_export.py 0 'Export to a SoftImage XSI file'
+'Stanford PLY (*.ply)...' 241 ply_export.py 0 'Export active object to Stanford PLY format'
+'VRML97 (.wrl)...' 241 vrml97_export.py 0 'Export to VRML97 file (.wrl)'
+'Vertex Keyframe Animation (.mdd)...' 242 export_mdd.py 0 'Animated mesh to MDD vertex keyframe file.'
+'Wavefront (.obj)...' 249 export_obj.py 0 'Save a Wavefront OBJ File'
+'X3D Extensible 3D (.x3d)...' 245 x3d_export.py 0 'Export selection to Extensible 3D file (.x3d)'
+}
+
+Import {
+'3D Studio (.3ds)...' 244 3ds_import.py 0 'Import from 3DS file format (.3ds)'
+'AC3D (.ac)...' 243 ac3d_import.py 0 'Import an AC3D (.ac) file.'
+'Autodesk DXF (.dxf .dwg)' 249 import_dxf.py 0 'Import for DWG/DXF geometry data.'
+'COLLADA 1.3.1 (.dae) ...' 237 collada_import.py 0 'Import scene from COLLADA format (.dae)'
+'COLLADA 1.4(.dae) ...' 241 colladaImport14.py 0 'Import scene from COLLADA 1.4 format (.dae)'
+'DEC Object File Format (.off)...' 242 off_import.py 0 'Import DEC Object File Format (*.off)'
+'DirectX(.x)...' 244 DirectX8Importer.py 0
+'LightWave (.lwo)...' 239 lightwave_import.py 0 'Import LightWave Object File Format'
+'Lightwave Motion (.mot)...' 245 import_lightwave_motion.py 0 'Import Loc Rot Size chanels from a Lightwave .mot file'
+'Load MDD to Mesh RVKs' 242 import_mdd.py 0 'baked vertex animation to active mesh object.'
+'MD2 (.md2)' 239 md2_import.py 0 'Import from Quake file format (.md2).'
+'MilkShape3D (.ms3d)...' 245 ms3d_import.py 0 'Import from MilkShape3D file format (.ms3d)'
+'MilkShape3D ASCII (.txt)...' 245 ms3d_import_ascii.py 0 'Import from a MilkShape3D ASCII file format (.txt)'
+'Motion Capture  (.c3d)...' 246 c3d_import.py 0 'Import a C3D Motion Capture file'
+'Motion Capture (.bvh)...' 242 bvh_import.py 0 'Import a (.bvh) motion capture file'
+'OpenFlight (.flt)...' 245 flt_import.py 0 'Import OpenFlight (.flt)'
+'Paths (.svg, .ps, .eps, .ai, Gimp)' 233 paths_import.py 0 'Import a path from any of a set of formats (still experimental)'
+|_Gimp 1.0 - 1.2.5: Gimp_1_0
+|_Gimp 2.0: Gimp_2_0
+|_Illustrator (.ai) PS-Adobe-2.0: AI
+|_InkScape (.svg): SVG
+|_Postscript (.eps/.ps) PS-Adobe-2.0: EPS
+'Pro Engineer (.slp)...' 232 slp_import.py 0 'Import Pro Engineer (.slp) File Format'
+'Raw Faces (.raw)...' 242 raw_import.py 0 'Import Raw Triangle File Format (.raw)'
+'Stanford PLY (*.ply)...' 248 ply_import.py 0 'Import a Stanford PLY file'
+'Video Sequence (.edl)...' 248 import_edl.py 0 'Load a CMX formatted EDL into the sequencer'
+'Wavefront (.obj)...' 249 import_obj.py 0 'Load a Wavefront OBJ File, Shift: batch import all dir.'
+'X3D & VRML97 (.x3d / wrl)...' 248 import_web3d.py 0 'Load an X3D or VRML97 file'
+}
+
+Mesh {
+'Bevel Center' 243 bevel_center.py 0 'Bevel selected faces, edges, and vertices'
+'Clean Meshes' 245 mesh_cleanup.py 0 'Clean unused data from all selected mesh objects.'
+'Deformed mesh to Rvk' 248 rvk1_torvk2.py 0 'Copy deform data (not surf. subdiv) of active obj to rvk of the 2nd selected obj'
+'Discombobulator' 237 discombobulator.py 0 'Adds random geometry to a mesh'
+'Edges to Curve' 241 mesh_edges2curves.py 0 'Edges not used by a face are converted into polyline(s)'
+'Mirror Vertex Locations & Weight' 241 mesh_mirror_tool.py 0 'Snap Verticies to X mirrored locations and weights.'
+'Poly Reduce Selection (Unsubsurf)' 245 mesh_poly_reduce_grid.py 0 'predictable mesh simplifaction maintaining face loops'
+'Poly Reducer' 243 mesh_poly_reduce.py 0 'Removed polygons from a mesh while maintaining the shape, textures and weights.'
+'Solid Wireframe' 243 mesh_wire.py 0 'Make a solid wireframe copy of this mesh'
+'Solidify Selection' 243 mesh_solidify.py 0 'Makes the mesh solid by creating a second skin.'
+'Unfold' 245 mesh_unfolder.py 0 'Unfold meshes to create nets'
+'Unweld vertex/ices' 243 unweld.py 0 'Unweld all faces from a (or several) selected and common vertex. Made vertex bevelling'
+}
+
+Misc {
+'FLT DOF Editor' 240 flt_dofedit.py 0 'Degree of Freedom editor for FLT nodes'
+'FLT LOD Editor' 240 flt_lodedit.py 0 'Level of Detail Edtior for FLT nodes'
+'FLT Palette Manager' 240 flt_palettemanager.py 0 'Manage FLT colors'
+'FLT Toolbar' 240 flt_toolbar.py 0 'Tools for working with FLT databases'
+}
+
+Object {
+'Apply Deformation' 242 object_apply_def.py 0
+'Axis Orientation Copy' 242 Axiscopy.py 0 'Copy local axis orientation of active object to all selected meshes (changes mesh data)'
+'Batch Object Name Edit' 240 object_batch_name_edit.py 0 'Apply the chosen rule to rename all selected objects at once.'
+'Bone Weight Copy' 245 mesh_boneweight_copy.py 0 'Copy Bone Weights from 1 mesh, to all other selected meshes.'
+'Cookie Cut from View' 234 object_cookie_cutter.py 0
+'Copy Active to Selected' 249 object_active_to_other.py 0 'For every selected object, copy the active to their loc/size/rot'
+'Data Copier' 232 obdatacopier.py 0 'Copy data from active object to other selected ones.'
+'Drop Onto Ground' 249 object_drop.py 0 'Drop the selected objects onto "ground" objects'
+'Find by Data Use' 242 object_find.py 0 'Find an object by the data it uses'
+'Object Name Editor' 232 renameobjectbyblock.py 0 'GUI to select and rename objects.'
+'Randomize Loc Size Rot' 241 object_random_loc_sz_rot.py 0 'Randomize the selected objects Loc Size Rot'
+'Selection to DupliGroup' 243 object_sel2dupgroup.py 0
+'TimeOffset follow Active' 245 object_timeofs_follow_act.py 0 'ActObs animated loc sets TimeOffset on other objects at closest frame'
+'UV Copy from Active' 242 uvcopy.py 0 'Copy UV coords from a mesh to another that has same vertex indices'
+}
+
+Render {
+'Save Render Layers...' 245 render_save_layers.py 0 'Save current renderlayers as a BPython script'
+}
+
+System {
+'Interactive Python Console' 245 console.py 0 'Interactive Python Console'
+'Scripts Config Editor' 236 config.py 0 'View and edit available scripts configuration data'
+}
+
+UV {
+'Save UV Face Layout...' 242 uv_export.py 0 'Export the UV face layout of the selected object to a .TGA or .SVG file'
+'Seams from Islands' 246 uv_seams_from_islands.py 0 'Add seams onto the mesh at the bounds of UV islands'
+}
+
+Image {
+'2D Cutout Image Importer' 249 image_2d_cutout.py 0 'Batch UV Map images to Planes'
+'Billboard Render on Active' 242 image_billboard.py 0 'Selected objects and lamps to rendered faces on the act mesh'
+'Consolidate into one image' 243 image_auto_layout.py 0 'Pack all texture images into 1 image and remap faces.'
+'Edit Externally' 242 image_edit.py 0 'Open in an application for editing. (hold Shift to configure)'
+}
+
+Wizards {
+'Bolt Factory' 248 wizard_bolt_factory.py 0 'Create models of various types of screw fasteners.'
+'Landscape Generator (A.N.T)' 248 wizard_landscape_ant.py 0 'Create landscape mesh.'
+'Tree from Curves' 245 wizard_curve2tree.py 0 'Generate trees from curve shapes'
+}
+
+FaceSelect {
+'Same Weights...' 245 faceselect_same_weights.py 0 'Select same faces with teh same weight for the active group.'
+}
+
+WeightPaint {
+'Clean Weight...' 245 weightpaint_clean.py 0 'Removed verts from groups below a weight limit.'
+'Copy Active Group...' 243 weightpaint_copy.py 0 'Copy the active group to a new one'
+'Envelope via Group Objects' 242 weightpaint_envelope_assign.py 0 'Assigns weights to vertices via object envelopes'
+'Grow/Shrink Weight...' 245 weightpaint_grow_shrink.py 0 'Grow/Shrink active vertex group.'
+'Invert Active Group' 245 weightpaint_invert.py 0 'Invert the active vertex group'
+'Normalize/Scale Weight...' 245 weightpaint_normalize.py 0 'Normalize the weight of the active weightgroup.'
+'Vertex Groups Island Average' 243 weightpaint_average.py 0 'Average the vertex weights for each connected set of verts'
+'Weight Gradient...' 245 weightpaint_gradient.py 0 'Click on the start and end grad points for the mesh for selected faces.'
+}
+
+VertexPaint {
+'Copy from Material...' 242 vertexpaint_from_material.py 0 'Writes material diffuse color as vertex colors.'
+'Self Shadow VCols (AO)...' 245 vertexpaint_selfshadow_ao.py 0 'Generate Fake Ambient Occlusion with vertex colors.'
+'VCol Gradient...' 245 vertexpaint_gradient.py 0 'Click on the start and end grad points for the mesh for selected faces.'
+}
+
+UVCalculation {
+'Click project from face' 245 uvcalc_quad_clickproj.py 0 '3 Clicks to project uvs onto selected faces.'
+'Follow Active (quads)' 242 uvcalc_follow_active_coords.py 0 'Follow from active quads.'
+'Lightmap UVPack' 242 uvcalc_lightmap.py 0 'Give each face non overlapping space on a texture.'
+'Unwrap (smart projections)' 240 uvcalc_smart_project.py 0 'UV Unwrap mesh faces for all select mesh objects'
+}
+
+Armature {
+'Armature Symmetry' 242 armature_symmetry.py 0 'Make an Armature symmetrical'
+}
+
+ScriptTemplate {
+'Background Job Example' 248 scripttemplate_background_job.py 0 'Script template for automating tasks from the command line with blender'
+'Camera/Object Example' 245 scripttemplate_camera_object.py 0 'Script template for setting the camera direction'
+'GameLogic Example' 249 scripttemplate_gamelogic.py 0 'Script template with examples of how to use game logic'
+'GameLogic Module' 249 scripttemplate_gamelogic_module.py 0 'Basic template for new game logic modules'
+'GameLogic Template' 249 scripttemplate_gamelogic_basic.py 0 'Basic template for new game logic scripts'
+'IPO Example' 245 scripttemplate_ipo_gen.py 0 'Script template for setting the IPO'
+'Mesh Editing' 243 scripttemplate_mesh_edit.py 0 'Add a new text for editing a mesh'
+'Metaball Generation' 245 scripttemplate_metaball_create.py 0 'Script template to make metaballs from a mesh'
+'Object Editing' 243 scripttemplate_object_edit.py 0 'Add a new text for editing selected objects'
+'Script Constraint' 245 scripttemplate_pyconstraint.py 0 'Add a new script for custom constraints'
+'Text Plugin' 246 scripttemplate_text_plugin.py 0 'Add a new text for writing a text plugin'
+}
+
+TextPlugin {
+'Code Outline | Ctrl T' 246 textplugin_outliner.py 0 'Provides a menu for jumping to class and functions definitions.'
+'Convert BGE 2.49' 246 textplugin_convert_ge.py 0
+'Function Documentation | Ctrl I' 246 textplugin_functiondocs.py 0 'Attempts to display documentation about the function preceding the cursor.'
+'Import Complete|Space' 246 textplugin_imports.py 0 'Lists modules when import or from is typed'
+'Member Suggest | .' 246 textplugin_membersuggest.py 0 'Lists members of the object preceding the cursor in the current text space'
+'Suggest All | Ctrl Space' 246 textplugin_suggest.py 0 'Performs suggestions based on the context of the cursor'
+'Template Completion | Tab' 246 textplugin_templates.py 0 'Completes templates based on the text preceding the cursor'
+}
+
+Help {
+'Blender/Python Scripting API' 248 help_bpy_api.py 0 'The Blender Python API reference manual'
+'Getting Started' 248 help_getting_started.py 0 'Help for new users'
+'HotKey and MouseAction Reference' 242 hotkeys.py 0 'All the hotkeys/short keys'
+'ID Property Browser' 242 IDPropBrowser.py 0 'Browse ID properties'
+'Manual' 248 help_manual.py 0 'The Blender Wiki manual'
+'Release Logs' 248 help_release_notes.py 0 'Information about the changes in this version of Blender'
+'Scripts Help Browser' 234 help_browser.py 0 'Show help information about a chosen installed script.'
+'Tutorials' 248 help_tutorials.py 0 'Tutorials for learning to use Blender'
+}
+
+HelpSystem {
+'System Information...' 236 sysinfo.py 0 'Information about your Blender environment, useful to diagnose problems.'
+}
+
+HelpWebsites {
+'Blender E-Shop' 248 help_web_eshop.py 0 'Buy official Blender resources and merchandise online'
+'Blender Website' 248 help_web_blender.py 0 'The official Blender website'
+'Developer Community' 248 help_web_devcomm.py 0 'Get involved with Blender development'
+'User Community' 248 help_web_usercomm.py 0 'Get involved with other Blender users'
+}
+
+MeshFaceKey {
+'Skin Faces/Edge-Loops' 243 mesh_skin.py 0 'Select 2 vert loops, then run this script.'
+}
+
+AddMesh {
+'Empty mesh' 243 add_mesh_empty.py 0
+'Torus' 243 add_mesh_torus.py 0
+}
