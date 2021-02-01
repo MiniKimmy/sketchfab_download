@@ -4,6 +4,7 @@ import re
 import json
 import requests
 import argparse
+import shutil
 from urllib.parse import urlparse
 from html.parser import HTMLParser
 from html import unescape
@@ -17,7 +18,7 @@ HEADERS = {
     'cache-control': 'max-age=0'
 }
 # ------------------------------------------
-def getBiggestImage(images):
+def _get_image_url(images):
     width = 0
     for img in images:
         if img['width'] > width:
@@ -25,30 +26,32 @@ def getBiggestImage(images):
             imgUrl = img['url']
     return imgUrl
 
-def validateTitle(title):
+def _validateTitle(title):
     pattern = r'[\\/:*?"<>|\r\n]+'
     newTitle = re.sub(pattern, "_", title)
     return newTitle
 
-def download(url, filename, retry_times = 3):
+def _download(url, filename, retry_times = 3):
     try:
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         if os.path.exists(filename):
             os.remove(filename)
         with open(filename, 'wb') as file:
             file.write(requests.get(url, headers=HEADERS, timeout=20).content)
-        if os.path.getsize(filename) < 1024: # 小于1024字节认为下载失败, 1024字节=1KB
+        if os.path.getsize(filename) < 1: # 小于1字节认为下载失败
             if retry_times > 0:
                 print("下载失败，正在尝试重新下载... (还剩余尝试%s次)" % retry_times)
-                download(url, filename, retry_times - 1)
+                _download(url, filename, retry_times - 1)
             else:
                 #print('重新尝试下载全部失败 filename=%s, 可手动去浏览器使用填写地址:%s来下载' % (filename, url))
                 print("下载失败, 请检查网络再尝试重新下载！")
+                dir_path = os.path.dirname(filename)
+                shutil.rmtree(dir_path)
                 sys.exit(1)
     except Exception:
         pass
 
-def DoParse(url, output_path):
+def parse(url, output_path):
     try:
         print('Pending...\n')
         page = requests.get(url, headers=HEADERS, timeout=20).text
@@ -57,11 +60,11 @@ def DoParse(url, output_path):
         data = json.loads(data)
         modelId =urlparse(url).path.split('/')[2].split('-')[-1]
         model_name = url[url.rindex('/')+1:url.rindex('-')].replace('-','') 
-        #去除中间空格
-        name = ''.join(model_name.split()).lower()
+        #保存目录的名字去除中间空格
+        dir_name = ''.join(model_name.split()).lower()
         # 缩略图文件(下载最大分辨率的那张)
         thumbnailData = data['/i/models/' + modelId]['thumbnails']['images']
-        thumbnail = getBiggestImage(thumbnailData)
+        thumbnail = _get_image_url(thumbnailData)
         # osgjs文件
         osgjsUrl = data['/i/models/' + modelId]['files'][0]['osgjsUrl']
         # model文件
@@ -69,18 +72,23 @@ def DoParse(url, output_path):
         # texture文件
         texturesData = data['/i/models/' + modelId + '/textures?optimized=1']['results']
         textures = []
-        save_dir_path = os.path.join(output_path, name)
+        save_dir_path = os.path.join(output_path, dir_name)
+        download_dir_path = save_dir_path + "_temp"
         print('开始下载缩略图...')
-        download(thumbnail, os.path.join(save_dir_path, 'thumbnail.jpg'))
+        _download(thumbnail, os.path.join(download_dir_path, 'thumbnail.jpg'))
+        print('开始下载模型数据...')
+        _download(osgjsUrl, os.path.join(download_dir_path, 'file.osgjs'))
         print('开始下载模型...')
-        download(osgjsUrl, os.path.join(save_dir_path, 'file.osgjs'))
-        download(modelFile, os.path.join(save_dir_path, 'model_file.bin.gz'))
+        _download(modelFile, os.path.join(download_dir_path, 'model_file.bin.gz'))
         cnt = 0
         for texture in texturesData:
             print('开始下载贴图... (%s/%s)' % (cnt, len(texturesData)))
-            textureUrl = getBiggestImage(texture['images'])
-            download(textureUrl, os.path.join(save_dir_path, 'texture', validateTitle(texture['name'])))
+            textureUrl = _get_image_url(texture['images'])
+            _download(textureUrl, os.path.join(download_dir_path, 'texture', _validateTitle(texture['name'])))
             cnt = cnt + 1
+        if os.path.exists(save_dir_path):
+            shutil.rmtree(save_dir_path)
+        shutil.move(download_dir_path, save_dir_path)
     except AttributeError:
         raise
         return False
@@ -89,7 +97,7 @@ def main(args):
     if args.url:
         cwd = os.getcwd()
         os.chdir(args.output)
-        DoParse(args.url, args.output)
+        parse(args.url, args.output)
         os.chdir(cwd)
     else:
         print("未使用 -u 参数传入url")

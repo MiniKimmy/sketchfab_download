@@ -1752,15 +1752,16 @@ def osgParser(filename):
 
 def Parser():
 	global log
-	log=open('log.txt','w')
-	filename=input.filename
-	ext=filename.split('.')[-1].lower()
-	osgParser(filename)	
-	log.close()
-	# ------------------------------- Ylvgn
 	global build_args
 	model_path = build_args["model_path"]
 	build_path = build_args["build_path"]
+
+	log=open(model_path + '/log.txt','w')
+	filename=input.filename
+	ext=filename.split('.')[-1].lower()
+	osgParser(filename)
+	log.close()
+	# -------------------------------
 	output_path = os.path.join(build_path, "decode.blend")
 	rm_list = [
 		os.path.join(model_path, "log.txt"),
@@ -1777,7 +1778,6 @@ def openFile(flagList):
 	output=Output(flagList)
 	parser=Parser()
 
-# Please use CLI: blender.exe -b -P decode_osgjs.py --model_path <osgjs_dir_path>
 if __name__ == '__main__':
 	global build_args
 	arg_config = {

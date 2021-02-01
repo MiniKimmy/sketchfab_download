@@ -7,7 +7,7 @@ import subprocess
 import shutil
 import argparse
 # ------------------------------------------
-cp = os.path.dirname(os.path.abspath(__file__))               # 当局脚本目录
+cp = os.path.dirname(os.path.abspath(__file__))               # 当前脚本目录
 py = "\\../bin/py/python.exe"                                 # 已带有py环境
 download_dir = cp                                             # 下载保存的目录
 output_dir = os.path.join(os.path.expanduser('~'), "Desktop") # 最终保存到桌面
@@ -15,7 +15,7 @@ custom_dir = "sketchfab_outputs"                              # 如果下载完�
 # ------------------------------------------
 def call(cmd, retry_time = 1):
     while retry_time > 0:
-        print(cmd)
+        # print(cmd)
         returnCode = subprocess.call(cmd, shell=True)
         retry_time -= 1
         if returnCode != 0:
@@ -54,9 +54,9 @@ def download_model(url):
     first_creat = fin_time + 666888
     files = os.listdir(cp)
     for file in files:
-        abs_path = cp + os.sep + file
+        abs_path = os.path.join(cp, file)
         if os.path.isdir(abs_path):
-            dir_ctime = os.path.getctime(abs_path)
+            dir_ctime = os.path.getmtime(abs_path)
             if dir_ctime >= now and dir_ctime <= fin_time and dir_ctime < first_creat:
                 first_creat = dir_ctime
                 download_path = abs_path
@@ -66,7 +66,7 @@ def download_model(url):
         for file in files:
             abs_path = os.path.join(cp, file)
             if os.path.isdir(abs_path):
-                dir_ctime = os.path.getctime(abs_path)
+                dir_ctime = os.path.getmtime(abs_path)
                 if dir_ctime >= now and dir_ctime <= fin_time :
                     list.append(file)
         if list:
