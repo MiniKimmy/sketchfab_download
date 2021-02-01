@@ -72,7 +72,7 @@ def download_model(url):
         if list:
             dst_path = os.path.join(output_dir, custom_dir)
         else:
-            err_exit("下载模型失败", returnCode)
+            err_exit("下载模型失败")
     else:
         fn = os.path.basename(download_path).strip().replace(' ', '').lower()
         dst_path = os.path.join(output_dir, fn)
