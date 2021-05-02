@@ -24,7 +24,6 @@ if __name__ == '__main__':
         "output_dir" : str, # 生成fbx所在的文件夹目录路径, 无传则认为在.blend文件所在目录生成.fbx
     }
     build_args = build_args_parser.parse(arg_config)
-    print("build_args=", build_args)
     if build_args.get("blend_fn", None):
         blend_fn = build_args["blend_fn"]
         if os.path.exists(blend_fn):

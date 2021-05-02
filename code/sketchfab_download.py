@@ -26,40 +26,35 @@ def _get_image_url(images):
             imgUrl = img['url']
     return imgUrl
 
-def _validateTitle(title):
-    pattern = r'[\\/:*?"<>|\r\n]+'
-    newTitle = re.sub(pattern, "_", title)
-    return newTitle
-
 def _download(url, filename, retry_times = 3):
     try:
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         if os.path.exists(filename):
             os.remove(filename)
         with open(filename, 'wb') as file:
-            file.write(requests.get(url, headers=HEADERS, timeout=20).content)
-        if os.path.getsize(filename) < 1: # 小于1字节认为下载失败
+            print("Downloading Url:", url)
+            file.write(requests.get(url, headers=HEADERS, timeout=30).content)
+        if os.path.getsize(filename) < 10: # 小于10字节认为下载失败
             if retry_times > 0:
                 print("下载失败，正在尝试重新下载... (还剩余尝试%s次)" % retry_times)
-                _download(url, filename, retry_times - 1)
+                return _download(url, filename, retry_times - 1)
             else:
-                #print('重新尝试下载全部失败 filename=%s, 可手动去浏览器使用填写地址:%s来下载' % (filename, url))
-                print("下载失败, 请检查网络再尝试重新下载！")
-                dir_path = os.path.dirname(filename)
-                shutil.rmtree(dir_path)
-                sys.exit(1)
+                print("Failed Download url:" + url)
+                return False
+        return True
     except Exception:
         pass
 
 def parse(url, output_path):
+    url = url + "/embed?autostart=1" # fix issue #6
     try:
         print('Pending...\n')
-        page = requests.get(url, headers=HEADERS, timeout=20).text
-        soup = BeautifulSoup(page, 'html.parser')
+        page = requests.get(url, headers=HEADERS, timeout=30).content
+        soup = BeautifulSoup(page, "html.parser")
         data = unescape(soup.find(id = 'js-dom-data-prefetched-data').string)
         data = json.loads(data)
-        modelId =urlparse(url).path.split('/')[2].split('-')[-1]
-        model_name = url[url.rindex('/')+1:url.rindex('-')].replace('-','') 
+        modelId = urlparse(url).path.split('/')[2].split('-')[-1]
+        model_name = modelId
         #保存目录的名字去除中间空格
         dir_name = ''.join(model_name.split()).lower()
         # 缩略图文件(下载最大分辨率的那张)
@@ -71,9 +66,9 @@ def parse(url, output_path):
         modelFile = osgjsUrl.replace('file.osgjs.gz', 'model_file.bin.gz') # 是sketchfab私有的名字 model_file.bin.gz
         # texture文件
         texturesData = data['/i/models/' + modelId + '/textures?optimized=1']['results']
-        textures = []
         save_dir_path = os.path.join(output_path, dir_name)
         download_dir_path = save_dir_path + "_temp"
+        failedDownLoadUrlList = []
         print('开始下载缩略图...')
         _download(thumbnail, os.path.join(download_dir_path, 'thumbnail.jpg'))
         print('开始下载模型数据...')
@@ -84,11 +79,17 @@ def parse(url, output_path):
         for texture in texturesData:
             print('开始下载贴图... (%s/%s)' % (cnt, len(texturesData)))
             textureUrl = _get_image_url(texture['images'])
-            _download(textureUrl, os.path.join(download_dir_path, 'texture', _validateTitle(texture['name'])))
+            fn = urlparse(textureUrl).path.split('/')[-1]
+            ok = _download(textureUrl, os.path.join(download_dir_path, 'texture', fn))
+            if not ok:
+                failedDownLoadUrlList.append(textureUrl)
             cnt = cnt + 1
         if os.path.exists(save_dir_path):
             shutil.rmtree(save_dir_path)
         shutil.move(download_dir_path, save_dir_path)
+        if failedDownLoadUrlList:
+            print("=======================\nMaybe netWork problem, some textures download failed, you can download them manually:\n", failedDownLoadUrlList)
+            print("\n========================================\n")
     except AttributeError:
         raise
         return False
