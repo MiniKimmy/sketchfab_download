@@ -79,7 +79,9 @@ def parse(url, output_path):
         for texture in textures:
             print('开始下载贴图... (%s/%s)' % (cnt, len(textures)))
             texture_url = _get_image_url(texture['images'])
-            fn = urlparse(texture_url).path.split('/')[-1]
+            texture_name = os.path.splitext(texture['name'])[0]
+            suffix = os.path.splitext(texture_url)[1]
+            fn = texture_name + suffix
             ok = _download(texture_url, os.path.join(download_dir_path, 'texture', fn))
             if not ok:
                 failed_download_url_list.append(texture_url)
