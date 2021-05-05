@@ -46,49 +46,49 @@ def _download(url, filename, retry_times = 3):
         pass
 
 def parse(url, output_path):
-    url = url + "/embed?autostart=1" # fix issue #6
+    url = url + "/embed?" # fix issue #6
     try:
         print('Pending...\n')
         page = requests.get(url, headers=HEADERS, timeout=30).content
         soup = BeautifulSoup(page, "html.parser")
         data = unescape(soup.find(id = 'js-dom-data-prefetched-data').string)
         data = json.loads(data)
-        modelId = urlparse(url).path.split('/')[2].split('-')[-1]
-        model_name = modelId
-        #保存目录的名字去除中间空格
+        model_id = urlparse(url).path.split('/')[2].split('-')[-1]
+        model_name = data['/i/models/' + model_id]['name']
+        # save_path (保存目录的名字去除中间空格)
         dir_name = ''.join(model_name.split()).lower()
-        # 缩略图文件(下载最大分辨率的那张)
-        thumbnailData = data['/i/models/' + modelId]['thumbnails']['images']
-        thumbnail = _get_image_url(thumbnailData)
-        # osgjs文件
-        osgjsUrl = data['/i/models/' + modelId]['files'][0]['osgjsUrl']
-        # model文件
-        modelFile = osgjsUrl.replace('file.osgjs.gz', 'model_file.bin.gz') # 是sketchfab私有的名字 model_file.bin.gz
-        # texture文件
-        texturesData = data['/i/models/' + modelId + '/textures?optimized=1']['results']
+        failed_download_url_list = []
         save_dir_path = os.path.join(output_path, dir_name)
         download_dir_path = save_dir_path + "_temp"
-        failedDownLoadUrlList = []
+        # thumbnail (下载最大分辨率的那张)
+        thumbnail = data['/i/models/' + model_id]['thumbnails']['images']
+        thumbnail_url = _get_image_url(thumbnail)
+        # osgjs
+        osgjs_url = data['/i/models/' + model_id]['files'][0]['osgjsUrl']
+        # model
+        model_file_url = osgjs_url.replace('file.osgjs.gz', 'model_file.bin.gz') # 是sketchfab私有的名字 model_file.bin.gz
+        # textures
+        textures = data['/i/models/' + model_id + '/textures?optimized=1']['results']
         print('开始下载缩略图...')
-        _download(thumbnail, os.path.join(download_dir_path, 'thumbnail.jpg'))
+        _download(thumbnail_url, os.path.join(download_dir_path, 'thumbnail.jpg'))
         print('开始下载模型数据...')
-        _download(osgjsUrl, os.path.join(download_dir_path, 'file.osgjs'))
+        _download(osgjs_url, os.path.join(download_dir_path, 'file.osgjs'))
         print('开始下载模型...')
-        _download(modelFile, os.path.join(download_dir_path, 'model_file.bin.gz'))
+        _download(model_file_url, os.path.join(download_dir_path, 'model_file.bin.gz'))
         cnt = 0
-        for texture in texturesData:
-            print('开始下载贴图... (%s/%s)' % (cnt, len(texturesData)))
-            textureUrl = _get_image_url(texture['images'])
-            fn = urlparse(textureUrl).path.split('/')[-1]
-            ok = _download(textureUrl, os.path.join(download_dir_path, 'texture', fn))
+        for texture in textures:
+            print('开始下载贴图... (%s/%s)' % (cnt, len(textures)))
+            texture_url = _get_image_url(texture['images'])
+            fn = urlparse(texture_url).path.split('/')[-1]
+            ok = _download(texture_url, os.path.join(download_dir_path, 'texture', fn))
             if not ok:
-                failedDownLoadUrlList.append(textureUrl)
+                failed_download_url_list.append(texture_url)
             cnt = cnt + 1
         if os.path.exists(save_dir_path):
             shutil.rmtree(save_dir_path)
         shutil.move(download_dir_path, save_dir_path)
-        if failedDownLoadUrlList:
-            print("=======================\nMaybe netWork problem, some textures download failed, you can download them manually:\n", failedDownLoadUrlList)
+        if failed_download_url_list:
+            print("=======================\nMaybe netWork problem, some textures download failed, you can download them manually:\n", failed_download_url_list)
             print("\n========================================\n")
     except AttributeError:
         raise
