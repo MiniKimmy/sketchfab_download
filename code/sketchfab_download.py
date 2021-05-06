@@ -26,6 +26,10 @@ def _get_image_url(images):
             imgUrl = img['url']
     return imgUrl
 
+def _validate_name(name):
+   pattern = r'[\\/:*?"<>|\r\n]+'
+   return re.sub(pattern, "_", name)
+
 def _download(url, filename, retry_times = 3):
     try:
         os.makedirs(os.path.dirname(filename), exist_ok=True)
@@ -54,7 +58,7 @@ def parse(url, output_path):
         data = unescape(soup.find(id = 'js-dom-data-prefetched-data').string)
         data = json.loads(data)
         model_id = urlparse(url).path.split('/')[2].split('-')[-1]
-        model_name = data['/i/models/' + model_id]['name']
+        model_name = _validate_name(data['/i/models/' + model_id]['name'])
         # save_path (保存目录的名字去除中间空格)
         dir_name = ''.join(model_name.split()).lower()
         failed_download_url_list = []
@@ -81,7 +85,7 @@ def parse(url, output_path):
             texture_url = _get_image_url(texture['images'])
             texture_name = os.path.splitext(texture['name'])[0]
             suffix = os.path.splitext(texture_url)[1]
-            fn = texture_name + suffix
+            fn = _validate_name(texture_name) + suffix
             ok = _download(texture_url, os.path.join(download_dir_path, 'texture', fn))
             if not ok:
                 failed_download_url_list.append(texture_url)
