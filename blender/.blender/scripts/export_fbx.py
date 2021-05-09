@@ -3010,9 +3010,9 @@ def write_ui(filename):
 		GLOBALS['FILENAME'] = filename # Draw.Create(Blender.sys.makename(ext='.fbx'))
 	# else:
 		# GLOBALS['FILENAME'].val = filename
-	
-	GLOBALS['EXP_OBS_SELECTED'] =			Draw.Create(1) # dont need 2 variables but just do this for clarity
-	GLOBALS['EXP_OBS_SCENE'] =				Draw.Create(0)
+
+	GLOBALS['EXP_OBS_SELECTED'] =			Draw.Create(0) # dont need 2 variables but just do this for clarity
+	GLOBALS['EXP_OBS_SCENE'] =				Draw.Create(1) # default selected 'EXP_OBS_SCENE'(equals to "Scene Objects")
 
 	GLOBALS['EXP_MESH'] =					Draw.Create(1)
 	GLOBALS['EXP_MESH_APPLY_MOD'] =			Draw.Create(1)
