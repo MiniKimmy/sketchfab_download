@@ -17,14 +17,25 @@ HEADERS = {
     'accept-language': 'zh-CN,zh-TW;q=0.8,zh;q=0.6,en;q=0.4,ja;q=0.2',
     'cache-control': 'max-age=0'
 }
+TEXTURE_EXTENSION = [
+    ".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff",
+    ".pcx", ".tga", ".exif", ".svg", ".cdr", ".pcd",
+    ".dxf", ".ufo", ".eps", ".wepo", ".csv", ".ico", ".exr",
+]
 # ------------------------------------------
 def _get_image_url(images):
     width = 0
+    img_url = ""
     for img in images:
-        if img['width'] > width:
+        ok = False
+        for ext in TEXTURE_EXTENSION:
+            if img['url'].endswith(ext):
+                ok = True
+                break
+        if ok and img['width'] > width:
             width = img['width']
-            imgUrl = img['url']
-    return imgUrl
+            img_url = img['url']
+    return img_url
 
 def _validate_name(name):
    pattern = r'[\\/:*?"<>|\r\n]+'
@@ -83,6 +94,12 @@ def parse(url, output_path):
         for texture in textures:
             print('开始下载贴图... (%s/%s)' % (cnt, len(textures)))
             texture_url = _get_image_url(texture['images'])
+            if not texture_url:
+                print("\n================DownLoad Texture Failed================\n")
+                print(texture['images'])
+                print("\n=======================================================\n")
+                cnt = cnt + 1
+                continue
             texture_name = os.path.splitext(texture['name'])[0]
             suffix = os.path.splitext(texture_url)[1]
             fn = _validate_name(texture_name) + suffix
@@ -94,8 +111,10 @@ def parse(url, output_path):
             shutil.rmtree(save_dir_path)
         shutil.move(download_dir_path, save_dir_path)
         if failed_download_url_list:
-            print("=======================\nMaybe netWork problem, some textures download failed, you can download them manually:\n", failed_download_url_list)
-            print("\n========================================\n")
+            print("=======================\nMaybe netWork problem, some textures download failed, you can download them manually:\n")
+            for failed_url in failed_download_url_list:
+                print(failed_url)
+            print("========================================\n")
     except AttributeError:
         raise
         return False
