@@ -5,6 +5,7 @@ import json
 import requests
 import argparse
 import shutil
+import urllib
 from urllib.parse import urlparse
 from html.parser import HTMLParser
 from html import unescape
@@ -69,7 +70,7 @@ def parse(url, output_path):
         data = unescape(soup.find(id = 'js-dom-data-prefetched-data').string)
         data = json.loads(data)
         model_id = urlparse(url).path.split('/')[2].split('-')[-1]
-        model_name = _validate_name(data['/i/models/' + model_id]['name'])
+        model_name = _validate_name(urllib.parse.quote(data['/i/models/' + model_id]['name']))
         # save_path (保存目录的名字去除中间空格)
         dir_name = ''.join(model_name.split()).lower()
         failed_download_url_list = []
@@ -102,7 +103,7 @@ def parse(url, output_path):
                 continue
             texture_name = os.path.splitext(texture['name'])[0]
             suffix = os.path.splitext(texture_url)[1]
-            fn = _validate_name(texture_name) + suffix
+            fn = _validate_name(urllib.parse.quote(texture_name)) + suffix
             ok = _download(texture_url, os.path.join(download_dir_path, 'texture', fn))
             if not ok:
                 failed_download_url_list.append(texture_url)
