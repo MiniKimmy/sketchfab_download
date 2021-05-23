@@ -76,6 +76,7 @@ def download_model(url):
     else:
         fn = os.path.basename(download_path).strip().replace(' ', '').lower()
         dst_path = os.path.join(output_dir, fn)
+    print("save_dir_name=%s\nsave_abs_path=%s\n" % (fn, dst_path))
     if os.path.exists(dst_path):
         shutil.rmtree(dst_path)
     shutil.move(download_path, dst_path)

@@ -1785,6 +1785,7 @@ if __name__ == '__main__':
 		"build_path" : str, # 生成.blend的目录路径, 无传则认为在model_path中生成.blend
 	}
 	build_args = build_args_parser.parse(arg_config)
+	print("model_path=%s\n" % (build_args.get("model_path")))
 	if build_args.get("model_path", None):
 		model_path = build_args["model_path"]
 		files = os.listdir(model_path)

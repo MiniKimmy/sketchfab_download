@@ -39,7 +39,7 @@ def _get_image_url(images):
     return img_url
 
 def _validate_name(name):
-   pattern = r'[\\/:*?"<>|\r\n]+'
+   pattern = r'[!|"#$%&\'()*,/:;<=>?@[\\]^`{}~\s\r\n]+'
    return re.sub(pattern, "_", name)
 
 def _download(url, filename, retry_times = 3):
